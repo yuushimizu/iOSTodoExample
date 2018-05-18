@@ -1,0 +1,30 @@
+//
+//  TasksBinding.swift
+//  TodoExample
+//
+//  Created by Yuu Shimizu on 2018/05/17.
+//  Copyright © 2018 yuushimizu. All rights reserved.
+//
+
+import Foundation
+import UIKit
+import RxSwift
+import RxCocoa
+
+class TasksBinding: NSObject {
+    private let disposeBag = DisposeBag()
+
+    private var viewModel: TasksViewModel?
+    
+    @IBOutlet weak var taskList: UITableView!
+    
+    @IBOutlet weak var addTaskButton: UIBarButtonItem!
+    
+    public func bind(_ viewModel: TasksViewModel) {
+        self.viewModel = viewModel
+        viewModel.tasks.bind(to: taskList.rx.items(cellIdentifier: "TaskListCell")) {row, task, cell in
+            cell.textLabel?.text = task.title
+        }.disposed(by: disposeBag)
+        addTaskButton.rx.tap.bind(to: viewModel.addTask).disposed(by: disposeBag)
+    }
+}

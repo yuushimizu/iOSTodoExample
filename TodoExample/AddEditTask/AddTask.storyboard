@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1ye-cq-jUR">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="JhG-s1-jNY">
+            <objects>
+                <navigationController id="1ye-cq-jUR" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Wdc-vk-hPE">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="d0H-so-Cu5" kind="relationship" relationship="rootViewController" id="6Cr-Wh-Cg1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9j9-R9-zU6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1009" y="260"/>
+        </scene>
+        <!--Add Task-->
+        <scene sceneID="Su8-vx-zlx">
+            <objects>
+                <viewController id="d0H-so-Cu5" customClass="AddTaskViewController" customModule="TodoExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PCg-mP-QWb" customClass="AddEditTaskView" customModule="TodoExample" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="GNE-nV-xBC"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Task" id="dB4-SE-WPR">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="dmj-Bp-Qon"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="dDN-ab-RFf"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="binding" destination="Plr-Wj-Kub" id="7fT-pG-fDp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Agd-Se-8YS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="Plr-Wj-Kub" customClass="AddTaskBinding" customModule="TodoExample" customModuleProvider="target">
+                    <connections>
+                        <outlet property="cancelButton" destination="dmj-Bp-Qon" id="spL-UF-UXX"/>
+                        <outlet property="saveButton" destination="dDN-ab-RFf" id="ubP-jU-wpU"/>
+                        <outlet property="view" destination="PCg-mP-QWb" id="w0R-fo-XuW"/>
+                    </connections>
+                </customObject>
+            </objects>
+            <point key="canvasLocation" x="-124" y="259.52023988005999"/>
+        </scene>
+    </scenes>
+</document>
