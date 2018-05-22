@@ -26,7 +26,7 @@ class TasksViewController: UIViewController {
     }
 }
 
-extension TasksViewController : TasksNavigator {
+extension TasksViewController : TasksViewModel.Navigator {
     func addTask() {
         self.show(AddTaskViewController.create(), sender: nil)
     }

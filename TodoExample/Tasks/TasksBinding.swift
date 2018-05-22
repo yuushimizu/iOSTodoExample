@@ -22,9 +22,9 @@ class TasksBinding: NSObject {
     
     public func bind(_ viewModel: TasksViewModel) {
         self.viewModel = viewModel
-        viewModel.tasks.bind(to: taskList.rx.items(cellIdentifier: "TaskListCell")) {row, task, cell in
+        viewModel.tasks.asDriver(onErrorDriveWith: Driver.empty()).drive(taskList.rx.items(cellIdentifier: "TaskListCell")) {row, task, cell in
             cell.textLabel?.text = task.title
         }.disposed(by: disposeBag)
-        addTaskButton.rx.tap.bind(to: viewModel.addTask).disposed(by: disposeBag)
+        addTaskButton.rx.tap.bind(to: viewModel.input.addTask).disposed(by: disposeBag)
     }
 }

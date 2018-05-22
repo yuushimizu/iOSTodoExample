@@ -30,7 +30,7 @@
         <scene sceneID="Su8-vx-zlx">
             <objects>
                 <viewController id="d0H-so-Cu5" customClass="AddTaskViewController" customModule="TodoExample" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="PCg-mP-QWb" customClass="AddEditTaskView" customModule="TodoExample" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="PCg-mP-QWb" customClass="AddEditTaskForm" customModule="TodoExample" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -48,8 +48,8 @@
                 <customObject id="Plr-Wj-Kub" customClass="AddTaskBinding" customModule="TodoExample" customModuleProvider="target">
                     <connections>
                         <outlet property="cancelButton" destination="dmj-Bp-Qon" id="spL-UF-UXX"/>
+                        <outlet property="form" destination="PCg-mP-QWb" id="ngJ-Iu-08H"/>
                         <outlet property="saveButton" destination="dDN-ab-RFf" id="ubP-jU-wpU"/>
-                        <outlet property="view" destination="PCg-mP-QWb" id="w0R-fo-XuW"/>
                     </connections>
                 </customObject>
             </objects>

@@ -11,33 +11,41 @@ import os.log
 import RxSwift
 import RxCocoa
 
-class AddTaskViewModel : AddEditTaskViewModel {
+protocol AddTaskNavigator : class {
+    func saved()
+    
+    func cancel()
+}
+
+class AddTaskViewModel {
+    typealias Navigator = AddTaskNavigator
+    
     private let disposeBag = DisposeBag()
     
     private let tasksRepository: TasksRepository
     
-    public weak var navigator: AddTaskNavigator?
+    public weak var navigator: Navigator?
     
-    public let save = PublishRelay<Void>()
-    
-    public let cancel = PublishRelay<Void>()
+    public let form = AddEditTaskFormViewModel()
+
+    public let input = (
+        save: PublishRelay<Void>(),
+        cancel: PublishRelay<Void>())
     
     public init(tasksRepository: TasksRepository) {
         self.tasksRepository = tasksRepository
-        super.init()
-        save.emit {[weak self] in self?.saveTask()}.disposed(by: disposeBag)
-        cancel.emit {[weak self] in self?.navigator?.cancel()}.disposed(by: disposeBag)
-    }
-    
-    private func saveTask() {
-        let task = Task(id: nil, title: title.value, content: content.value)
-        _ = self.tasksRepository.save(task: task).subscribe {event in
-            switch event {
-            case .success:
-                self.navigator?.saved()
-            case .error(let error):
-                os_log("(>_<) %@", error.localizedDescription)
-            }
-        }
+        input.save.withLatestFrom(form.values)
+            .flatMapLatest {self.tasksRepository.save(task: Task(id: nil, title: $0.title, content: $0.content))}
+            .subscribe {event in
+                switch event {
+                case .next:
+                    self.navigator?.saved()
+                case .error(let error):
+                    os_log("(>_<) %@", error.localizedDescription)
+                default:
+                    break
+                }
+            }.disposed(by: disposeBag)
+        input.cancel.bind {[weak self] in self?.navigator?.cancel()}.disposed(by: disposeBag)
     }
 }

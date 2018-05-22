@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class AddTaskViewController: UIViewController, AddTaskNavigator {
+class AddTaskViewController: UIViewController {
     @IBOutlet var binding: AddTaskBinding!
     
     override func viewDidLoad() {
@@ -23,7 +23,9 @@ class AddTaskViewController: UIViewController, AddTaskNavigator {
         let storyboard = UIStoryboard(name: "AddTask", bundle: nil)
         return storyboard.instantiateInitialViewController()!
     }
-    
+}
+
+extension AddTaskViewController : AddTaskViewModel.Navigator {
     func saved() {
         dismiss(animated: true, completion: nil)
     }

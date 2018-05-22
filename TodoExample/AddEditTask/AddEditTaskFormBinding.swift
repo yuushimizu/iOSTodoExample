@@ -1,5 +1,5 @@
 //
-//  AddEditTaskBinding.swift
+//  AddEditTaskFormBinding.swift
 //  TodoExample
 //
 //  Created by Yuu Shimizu on 2018/05/18.
@@ -12,10 +12,10 @@ import RxSwift
 import RxCocoa
 import RxOptional
 
-class AddEditTaskBinding: NSObject {
+class AddEditTaskFormBinding: NSObject {
     private let disposeBag = DisposeBag()
     
-    private var viewModel: AddEditTaskViewModel?
+    private var viewModel: AddEditTaskFormViewModel?
     
     @IBOutlet weak var title: UITextField!
     
@@ -23,11 +23,11 @@ class AddEditTaskBinding: NSObject {
     
     @IBOutlet weak var contentPlaceholder: UIView!
     
-    public func bind(_ viewModel: AddEditTaskViewModel) {
+    public func bind(_ viewModel: AddEditTaskFormViewModel) {
         self.viewModel = viewModel
-        viewModel.title.bind(to: title.rx.text).disposed(by: disposeBag)
+        viewModel.title.asDriver().drive(title.rx.text).disposed(by: disposeBag)
         title.rx.text.bind(to: viewModel.title).disposed(by: disposeBag)
-        viewModel.content.bind(to: content.rx.text).disposed(by: disposeBag)
+        viewModel.content.asDriver().drive(content.rx.text).disposed(by: disposeBag)
         content.rx.text.bind(to: viewModel.content).disposed(by: disposeBag)
         content.rx.text.map {$0?.isNotEmpty}.filterNil().bind(to: contentPlaceholder.rx.isHidden).disposed(by: disposeBag)
     }

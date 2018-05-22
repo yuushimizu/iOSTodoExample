@@ -1,5 +1,5 @@
 //
-//  AddEditTaskView.swift
+//  AddEditTaskForm.swift
 //  TodoExample
 //
 //  Created by Yuu Shimizu on 2018/05/18.
@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 @IBDesignable
-class AddEditTaskView: UIView {
-    @IBOutlet var binding: AddEditTaskBinding!
+class AddEditTaskForm: UIView {
+    @IBOutlet var binding: AddEditTaskFormBinding!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,9 +24,13 @@ class AddEditTaskView: UIView {
     }
     
     private func initializeView() {
-        let view = UINib(nibName: "AddEditTaskView", bundle: Bundle(for: type(of:self))).instantiate(withOwner: self, options: nil).first as! UIView
+        let view = UINib(nibName: "AddEditTaskForm", bundle: Bundle(for: type(of:self))).instantiate(withOwner: self, options: nil).first as! UIView
         addSubview(view)
         view.frame = self.bounds
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    }
+    
+    public func bind(_ viewModel: AddEditTaskFormViewModel) {
+        binding.bind(viewModel)
     }
 }

@@ -14,15 +14,15 @@ import RxCocoa
 class AddTaskBinding : NSObject {
     private let disposeBag = DisposeBag()
     
-    @IBOutlet weak var view: AddEditTaskView!
+    @IBOutlet weak var form: AddEditTaskForm!
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     public func bind(_ viewModel: AddTaskViewModel) {
-        view.binding.bind(viewModel)
-        saveButton.rx.tap.bind(to: viewModel.save).disposed(by: disposeBag)
-        cancelButton.rx.tap.bind(to: viewModel.cancel).disposed(by: disposeBag)
+        form.bind(viewModel.form)
+        saveButton.rx.tap.bind(to: viewModel.input.save).disposed(by: disposeBag)
+        cancelButton.rx.tap.bind(to: viewModel.input.cancel).disposed(by: disposeBag)
     }
 }

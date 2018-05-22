@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddEditTaskView" customModule="TodoExample" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddEditTaskForm">
             <connections>
                 <outlet property="binding" destination="QBu-SZ-9se" id="jai-XY-spT"/>
             </connections>
@@ -79,7 +79,7 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
-        <customObject id="QBu-SZ-9se" customClass="AddEditTaskBinding" customModule="TodoExample" customModuleProvider="target">
+        <customObject id="QBu-SZ-9se" customClass="AddEditTaskFormBinding" customModule="TodoExample" customModuleProvider="target">
             <connections>
                 <outlet property="content" destination="XXn-me-cKe" id="GYK-R5-rLf"/>
                 <outlet property="contentPlaceholder" destination="eMY-YE-7Du" id="OkX-vZ-GUr"/>
