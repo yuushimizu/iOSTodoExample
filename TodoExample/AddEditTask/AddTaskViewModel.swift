@@ -42,8 +42,8 @@ class AddTaskViewModel {
         let (saved, saveErrors) = input.save.withLatestFrom(form.values)
             .flatMapLatest {values -> Observable<Result<Task>> in
                 return tasksRepository.save(task: Task(id: nil, title: values.title, content: values.content))
-                    .asObservable()
                     .mapToResult()
+                    .asObservable()
             }
             .separateErrors()
         self.saveErrors = saveErrors
