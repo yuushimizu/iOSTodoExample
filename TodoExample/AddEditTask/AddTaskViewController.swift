@@ -8,32 +8,32 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class AddTaskViewController: UIViewController {
     @IBOutlet var binding: AddTaskBinding!
     
-    let tasksRepository = TasksRepository.shared //
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         let viewModel = AddTaskViewModel(
-            navigator: self,
-            tasksRepository: tasksRepository
+            tasksRepository: TasksRepository.shared //
         )
+        viewModel.navigation.saved
+            .bind {[weak self] _ in
+                self?.dismiss(animated: true, completion: nil)
+            }
+            .disposed(by: disposeBag)
+        viewModel.navigation.cancel
+            .bind {[weak self] in
+                self?.dismiss(animated: true, completion: nil)
+            }
+            .disposed(by: disposeBag)
         binding.bind(viewModel)
     }
     
     static func create() -> UIViewController {
         let storyboard = UIStoryboard(name: "AddTask", bundle: nil)
         return storyboard.instantiateInitialViewController()!
-    }
-}
-
-extension AddTaskViewController: AddTaskViewModel.Navigator {
-    func saved() {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func cancel() {
-        dismiss(animated: true, completion: nil)
     }
 }

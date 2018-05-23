@@ -7,29 +7,29 @@
 //
 
 import UIKit
+import RxSwift
 
 class TasksViewController: UIViewController {
     @IBOutlet var binding: TasksBinding!
     
-    let tasksRepository = TasksRepository.shared //
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let viewModel = TasksViewModel(
-            navigator: self,
-            tasksRepository: tasksRepository)
+            tasksRepository: TasksRepository.shared //
+        )
+        viewModel.navigation.addTask
+            .bind {[weak self] in
+                self?.show(AddTaskViewController.create(), sender: nil)
+            }
+            .disposed(by: disposeBag)
         binding.bind(viewModel)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-}
-
-extension TasksViewController: TasksViewModel.Navigator {
-    func addTask() {
-        self.show(AddTaskViewController.create(), sender: nil)
     }
 }

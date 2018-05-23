@@ -11,27 +11,27 @@ import os.log
 import RxSwift
 import RxCocoa
 
-protocol TasksNavigator: class {
-    func addTask()
-}
-
 class TasksViewModel {
-    typealias Navigator = TasksNavigator
-    
     struct Input {
         public let addTask = PublishRelay<Void>()
+    }
+    
+    struct Navigation {
+        public let addTask: Observable<Void>
     }
     
     private let disposeBag = DisposeBag()
     
     public let input = Input()
     
+    public let navigation: Navigation
+    
     public let tasks: Observable<[Task]>
     
-    public init(navigator: Navigator, tasksRepository: TasksRepository) {
+    public init(tasksRepository: TasksRepository) {
+        let addTaskNavigationRelay = PublishRelay<Void>()
+        self.navigation = Navigation(addTask: addTaskNavigationRelay.asObservable())
         self.tasks = tasksRepository.tasks
-        input.addTask.bind {[weak navigator] in
-            navigator?.addTask()
-            }.disposed(by: disposeBag)
+        input.addTask.bind(to: addTaskNavigationRelay).disposed(by: disposeBag)
     }
 }

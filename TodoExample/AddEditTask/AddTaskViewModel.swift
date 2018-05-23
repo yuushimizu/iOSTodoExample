@@ -11,43 +11,43 @@ import os.log
 import RxSwift
 import RxCocoa
 
-protocol AddTaskNavigator: class {
-    func saved()
-    
-    func cancel()
-}
-
 class AddTaskViewModel {
-    typealias Navigator = AddTaskNavigator
-    
     private let disposeBag = DisposeBag()
+    
+    private weak var tasksRepository: TasksRepository?
 
     public let input = (
         save: PublishRelay<Void>(),
         cancel: PublishRelay<Void>()
     )
     
+    public let navigation: (
+    saved: Observable<Task>,
+    cancel: Observable<Void>
+    )
+    
     public let form = AddEditTaskFormViewModel()
 
     public let saveErrors: Observable<Error>
     
-    public init(navigator: Navigator, tasksRepository: TasksRepository) {
+    public init(tasksRepository: TasksRepository) {
+        let navigationRelays = (
+            saved: PublishRelay<Task>(),
+            cancel: PublishRelay<Void>()
+        )
+        self.navigation = (
+            saved: navigationRelays.saved.asObservable(),
+            cancel: navigationRelays.cancel.asObservable()
+        )
         let (saved, saveErrors) = input.save.withLatestFrom(form.values)
-            .flatMapLatest {[weak tasksRepository] values -> Observable<Result<Task>> in
-                guard let tasksRepository = tasksRepository else {return Observable.empty()}
+            .flatMapLatest {values -> Observable<Result<Task>> in
                 return tasksRepository.save(task: Task(id: nil, title: values.title, content: values.content))
                     .asObservable()
                     .mapToResult()
             }
             .separateErrors()
         self.saveErrors = saveErrors
-        saved.bind(onNext: {[weak navigator] _ in
-            navigator?.saved()
-            })
-            .disposed(by: disposeBag)
-        input.cancel.bind {[weak navigator] in
-            navigator?.cancel()
-            }
-            .disposed(by: disposeBag)
+        saved.bind(to: navigationRelays.saved).disposed(by: disposeBag)
+        input.cancel.bind(to: navigationRelays.cancel).disposed(by: disposeBag)
     }
 }

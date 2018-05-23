@@ -28,8 +28,10 @@ class AddTaskBinding: NSObject {
         form.bind(viewModel.form)
         saveButton.rx.tap.bind(to: viewModel.input.save).disposed(by: disposeBag)
         cancelButton.rx.tap.bind(to: viewModel.input.cancel).disposed(by: disposeBag)
-        viewModel.saveErrors.bind(onNext: {error in
-            os_log("(>_<) < %@", error.localizedDescription)
-        }).disposed(by: disposeBag)
+        viewModel.saveErrors
+            .bind {error in
+                os_log("(>_<) < %@", error.localizedDescription)
+            }
+            .disposed(by: disposeBag)
     }
 }

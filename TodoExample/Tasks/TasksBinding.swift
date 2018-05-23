@@ -25,7 +25,8 @@ class TasksBinding: NSObject {
         viewModel.tasks.asDriver(onErrorDriveWith: Driver.empty())
             .drive(taskList.rx.items(cellIdentifier: "TaskListCell")) {row, task, cell in
                 cell.textLabel?.text = task.title
-            }.disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
         addTaskButton.rx.tap.bind(to: viewModel.input.addTask).disposed(by: disposeBag)
     }
 }
