@@ -12,10 +12,13 @@ import UIKit
 class AddTaskViewController: UIViewController {
     @IBOutlet var binding: AddTaskBinding!
     
+    let tasksRepository = TasksRepository.shared //
+    
     override func viewDidLoad() {
-        let tasksRepository = TasksRepository.shared //
-        let viewModel = AddTaskViewModel(tasksRepository: tasksRepository)
-        viewModel.navigator = self
+        let viewModel = AddTaskViewModel(
+            navigator: self,
+            tasksRepository: tasksRepository
+        )
         binding.bind(viewModel)
     }
     
@@ -25,7 +28,7 @@ class AddTaskViewController: UIViewController {
     }
 }
 
-extension AddTaskViewController : AddTaskViewModel.Navigator {
+extension AddTaskViewController: AddTaskViewModel.Navigator {
     func saved() {
         dismiss(animated: true, completion: nil)
     }

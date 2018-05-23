@@ -15,6 +15,9 @@
 		CA51405A20AE03750070624B /* AddTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA51405920AE03750070624B /* AddTaskViewModel.swift */; };
 		CA51406020AE09450070624B /* TasksRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA51405F20AE09450070624B /* TasksRepository.swift */; };
 		CA51406620AE68830070624B /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA51406520AE68830070624B /* Task.swift */; };
+		CA51407420B42B0F0070624B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA51407320B42B0F0070624B /* Result.swift */; };
+		CA51407A20B42E2A0070624B /* Observable+mapToResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA51407920B42E2A0070624B /* Observable+mapToResult.swift */; };
+		CA51407E20B515260070624B /* Observable+separateErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA51407D20B515260070624B /* Observable+separateErrors.swift */; };
 		CA7BDDF620ADBFEE0060FD1B /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7BDDF520ADBFEE0060FD1B /* AddTaskViewController.swift */; };
 		CA7BDDF820ADC0BB0060FD1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA7BDDF720ADC0BB0060FD1B /* Main.storyboard */; };
 		CA7BDDFF20ADCB390060FD1B /* TaskDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA7BDDFE20ADCB390060FD1B /* TaskDetail.storyboard */; };
@@ -64,6 +67,9 @@
 		CA51405920AE03750070624B /* AddTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewModel.swift; sourceTree = "<group>"; };
 		CA51405F20AE09450070624B /* TasksRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksRepository.swift; sourceTree = "<group>"; };
 		CA51406520AE68830070624B /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		CA51407320B42B0F0070624B /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		CA51407920B42E2A0070624B /* Observable+mapToResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+mapToResult.swift"; sourceTree = "<group>"; };
+		CA51407D20B515260070624B /* Observable+separateErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+separateErrors.swift"; sourceTree = "<group>"; };
 		CA7BDDF520ADBFEE0060FD1B /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
 		CA7BDDF720ADC0BB0060FD1B /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		CA7BDDFE20ADCB390060FD1B /* TaskDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TaskDetail.storyboard; sourceTree = "<group>"; };
@@ -146,6 +152,9 @@
 			isa = PBXGroup;
 			children = (
 				CA51405520ADFEF20070624B /* ControlProperty+bind.swift */,
+				CA51407320B42B0F0070624B /* Result.swift */,
+				CA51407920B42E2A0070624B /* Observable+mapToResult.swift */,
+				CA51407D20B515260070624B /* Observable+separateErrors.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -472,6 +481,8 @@
 				CA7BDE0320ADD5440060FD1B /* AddEditTaskFormViewModel.swift in Sources */,
 				CA51406020AE09450070624B /* TasksRepository.swift in Sources */,
 				CA51405A20AE03750070624B /* AddTaskViewModel.swift in Sources */,
+				CA51407420B42B0F0070624B /* Result.swift in Sources */,
+				CA51407E20B515260070624B /* Observable+separateErrors.swift in Sources */,
 				CA7BDE0120ADD5360060FD1B /* AddEditTaskFormBinding.swift in Sources */,
 				CA8483F820AD61200040C1A9 /* TasksViewController.swift in Sources */,
 				CA51406620AE68830070624B /* Task.swift in Sources */,
@@ -479,6 +490,7 @@
 				CA84842C20AD69150040C1A9 /* TasksBinding.swift in Sources */,
 				CA84842A20AD690B0040C1A9 /* TasksViewModel.swift in Sources */,
 				CA51405820AE036A0070624B /* AddTaskBinding.swift in Sources */,
+				CA51407A20B42E2A0070624B /* Observable+mapToResult.swift in Sources */,
 				CA7BDE0D20ADF2C50060FD1B /* AddEditTaskForm.swift in Sources */,
 				CA8483F620AD61200040C1A9 /* AppDelegate.swift in Sources */,
 			);

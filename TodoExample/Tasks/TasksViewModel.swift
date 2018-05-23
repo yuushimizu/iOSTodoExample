@@ -11,7 +11,7 @@ import os.log
 import RxSwift
 import RxCocoa
 
-protocol TasksNavigator : class {
+protocol TasksNavigator: class {
     func addTask()
 }
 
@@ -24,20 +24,14 @@ class TasksViewModel {
     
     private let disposeBag = DisposeBag()
     
-    private let tasksRepository: TasksRepository
-    
-    public weak var navigator: Navigator?
-    
-    public var tasks: Observable<[Task]> {
-        return tasksRepository.tasks
-    }
-    
     public let input = Input()
     
-    public init(tasksRepository: TasksRepository) {
-        self.tasksRepository = tasksRepository
-        input.addTask.bind {[weak self] in
-            self?.navigator?.addTask()
-        }.disposed(by: disposeBag)
+    public let tasks: Observable<[Task]>
+    
+    public init(navigator: Navigator, tasksRepository: TasksRepository) {
+        self.tasks = tasksRepository.tasks
+        input.addTask.bind {[weak navigator] in
+            navigator?.addTask()
+            }.disposed(by: disposeBag)
     }
 }

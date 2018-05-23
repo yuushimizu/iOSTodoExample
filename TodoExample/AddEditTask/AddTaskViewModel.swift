@@ -11,7 +11,7 @@ import os.log
 import RxSwift
 import RxCocoa
 
-protocol AddTaskNavigator : class {
+protocol AddTaskNavigator: class {
     func saved()
     
     func cancel()
@@ -21,31 +21,33 @@ class AddTaskViewModel {
     typealias Navigator = AddTaskNavigator
     
     private let disposeBag = DisposeBag()
-    
-    private let tasksRepository: TasksRepository
-    
-    public weak var navigator: Navigator?
-    
-    public let form = AddEditTaskFormViewModel()
 
     public let input = (
         save: PublishRelay<Void>(),
-        cancel: PublishRelay<Void>())
+        cancel: PublishRelay<Void>()
+    )
     
-    public init(tasksRepository: TasksRepository) {
-        self.tasksRepository = tasksRepository
-        input.save.withLatestFrom(form.values)
-            .flatMapLatest {self.tasksRepository.save(task: Task(id: nil, title: $0.title, content: $0.content))}
-            .subscribe {event in
-                switch event {
-                case .next:
-                    self.navigator?.saved()
-                case .error(let error):
-                    os_log("(>_<) %@", error.localizedDescription)
-                default:
-                    break
-                }
-            }.disposed(by: disposeBag)
-        input.cancel.bind {[weak self] in self?.navigator?.cancel()}.disposed(by: disposeBag)
+    public let form = AddEditTaskFormViewModel()
+
+    public let saveErrors: Observable<Error>
+    
+    public init(navigator: Navigator, tasksRepository: TasksRepository) {
+        let (saved, saveErrors) = input.save.withLatestFrom(form.values)
+            .flatMapLatest {[weak tasksRepository] values -> Observable<Result<Task>> in
+                guard let tasksRepository = tasksRepository else {return Observable.empty()}
+                return tasksRepository.save(task: Task(id: nil, title: values.title, content: values.content))
+                    .asObservable()
+                    .mapToResult()
+            }
+            .separateErrors()
+        self.saveErrors = saveErrors
+        saved.bind(onNext: {[weak navigator] _ in
+            navigator?.saved()
+            })
+            .disposed(by: disposeBag)
+        input.cancel.bind {[weak navigator] in
+            navigator?.cancel()
+            }
+            .disposed(by: disposeBag)
     }
 }

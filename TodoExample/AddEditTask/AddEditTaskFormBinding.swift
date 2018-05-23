@@ -13,9 +13,9 @@ import RxCocoa
 import RxOptional
 
 class AddEditTaskFormBinding: NSObject {
-    private let disposeBag = DisposeBag()
-    
     private var viewModel: AddEditTaskFormViewModel?
+    
+    private let disposeBag = DisposeBag()
     
     @IBOutlet weak var title: UITextField!
     

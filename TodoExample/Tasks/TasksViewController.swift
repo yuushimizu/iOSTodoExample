@@ -11,12 +11,14 @@ import UIKit
 class TasksViewController: UIViewController {
     @IBOutlet var binding: TasksBinding!
     
+    let tasksRepository = TasksRepository.shared //
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let tasksRepository = TasksRepository.shared //
-        let viewModel = TasksViewModel(tasksRepository: tasksRepository)
-        viewModel.navigator = self
+        let viewModel = TasksViewModel(
+            navigator: self,
+            tasksRepository: tasksRepository)
         binding.bind(viewModel)
     }
 
@@ -26,7 +28,7 @@ class TasksViewController: UIViewController {
     }
 }
 
-extension TasksViewController : TasksViewModel.Navigator {
+extension TasksViewController: TasksViewModel.Navigator {
     func addTask() {
         self.show(AddTaskViewController.create(), sender: nil)
     }
